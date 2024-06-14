@@ -31,14 +31,14 @@ test("Notification with close button", async ({ page }) => {
 
 test("Notification with close button and icon", async ({ page }) => {
   const notificationWithBothElements = await page
-    .locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button and icon."]')
+    .locator('//*[contains(@class, "alert-with-icon")]/*[text() = "This is a notification with close button and icon."]')
     .textContent();
 
   await expect(page.getByText(`${notificationWithBothElements}`)).toBeVisible();
 
   await expect(
     page
-      .locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button and icon."]')
+      .locator('//*[contains(@class, "alert-with-icon")]/*[text() = "This is a notification with close button and icon."]')
   ).toHaveText(`${notificationWithBothElements}`);
 });
 
