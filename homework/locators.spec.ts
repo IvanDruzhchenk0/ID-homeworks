@@ -7,56 +7,50 @@ test.beforeEach(async ({ page }) => {
 test("Plain Notification", async ({ page }) => {
   // Знаходимо текст нотифікації
   const plainNotification = await page
-    .locator('//div[@class="fade alert alert-info show"]')
-    .nth(0)
+    .locator('//*[contains(@class, "alert-info show")]/*[contains(text(), "plain notification")]')
     .textContent();
   // Перевіряємо, чи текст співпадає з елементом на сторінки за допомогою вбудованих у Playwirght функцій
   await expect(page.getByText(`${plainNotification}`)).toBeVisible();
   // Перевіряємо, чи текст співпадає з елементом на сторінки за допомогою XPath
   await expect(
-    page.locator('//div[@class="fade alert alert-info show"]').nth(0)
+    page.locator('//*[contains(@class, "alert-info show")]/*[contains(text(), "plain notification")]')
   ).toHaveText(`${plainNotification}`);
 });
 
 test("Notification with close button", async ({ page }) => {
   const notificationWithCloseButton = await page
-    .locator('//div[@class="fade alert alert-info show"]')
-    .nth(1)
+    .locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button."]')
     .textContent();
 
   await expect(page.getByText(`${notificationWithCloseButton}`)).toBeVisible();
 
   await expect(
-    page.locator('//div[@class="fade alert alert-info show"]').nth(1)
+    page.locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button."]')
   ).toHaveText(`${notificationWithCloseButton}`);
 });
 
 test("Notification with close button and icon", async ({ page }) => {
   const notificationWithBothElements = await page
-    .locator('//div[@class="fade alert-with-icon alert alert-info show"]')
-    .nth(0)
+    .locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button and icon."]')
     .textContent();
 
   await expect(page.getByText(`${notificationWithBothElements}`)).toBeVisible();
 
   await expect(
     page
-      .locator('//div[@class="fade alert-with-icon alert alert-info show"]')
-      .nth(0)
+      .locator('//*[contains(@class, "alert-info show")]/*[text() = "This is a notification with close button and icon."]')
   ).toHaveText(`${notificationWithBothElements}`);
 });
 
 test("Notification with long text", async ({ page }) => {
   const notificationWithLongText = await page
-    .locator('//div[@class="fade alert-with-icon alert alert-info show"]')
-    .nth(1)
+    .locator('//*[contains(@class, "alert-with-icon")]/*[contains(text(), "beautiful notification")]')
     .textContent();
 
   await expect(page.getByText(`${notificationWithLongText}`)).toBeVisible();
 
   await expect(
     page
-      .locator('//div[@class="fade alert-with-icon alert alert-info show"]')
-      .nth(1)
+      .locator('//*[contains(@class, "alert-with-icon")]/*[contains(text(), "beautiful notification")]')
   ).toHaveText(`${notificationWithLongText}`);
 });
