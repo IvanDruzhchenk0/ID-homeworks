@@ -34,12 +34,11 @@ array_Clone([1, 2, [4, 0]]);
 // console.log(first([],3)); //[]
 // console.log(first([7, 9, 0, -2],-3)); //[7, 9, 0, -2]
 
-function first(array, number = 1) {
-  if (number == 1) {
-    let firstElement = array.shift();
-    return firstElement;
+function first(array, n = 1) {
+  if (n == 1) {
+    return array[0];
   } else {
-    return array.slice(0, number);
+    return array.slice(0, n);
   }
 }
 first([7, 9, 0, -2], 4);
@@ -47,11 +46,11 @@ first([7, 9, 0, -2], 4);
 // 4. Напишіть JavaScript функцію для отримання останнього елемента масиву. Передача параметра 'n' поверне останні 'n' елементів масиву.
 
 // Наприклад:
-function last(array, number = 1) {
-  if (number == 1) {
-    return array.pop();
+function last(array, n = 1) {
+  if (n == 1) {
+    return array[array.length - 1];
   } else {
-    return array.slice(array.length - number, array.length);
+    return array.slice(array.length - n, array.length);
   }
 }
 last([7, 9, 0, -2], 6);
@@ -69,12 +68,12 @@ function toString(array) {
 toString(myColor);
 
 // без вбудованого методу .toString()
-function toString2(array){
-    let string = '';
-    array.forEach(element => {
-        string = string + element + ',';
-    });
-    return string.slice(0 , string.length - 1);
+function toString2(array) {
+  let string = "";
+  array.forEach((element) => {
+    string = string + element + ",";
+  });
+  return string.slice(0, string.length - 1);
 }
 console.log(toString2(myColor));
 // const myColor = ["Red", "Green", "White", "Black"]; => "Red,Green,White,Black"
@@ -82,15 +81,20 @@ console.log(toString2(myColor));
 // BONUS LVL:
 // 6. Напишіть функцію яка б перетворювала Array на Object
 // де index це key, а значення це value
-function toObject(array) {
-  let obj = Object.fromEntries(array);
-  return obj;
-}
-toObject([
+let array = [
   ["JS", "JavaScript"],
   ["GFG", "GeeksforGeeks"],
-]);
+];
 
+function toObject(arr) {
+  let object = {};
+
+  for (let [key, value] of arr) {
+    object[key] = value;
+  }
+  return object;
+}
+toObject(array);
 // 7. Напишіть функцію яка б перетворювала Object на Array
 
 // наприклад
@@ -98,11 +102,17 @@ toObject([
 // test: 'Foo",
 // bar: "Test"
 // }
+let obj = { test: "Foo", bar: "Test" };
+
 function toArray(obj) {
-  let arr = Object.entries(obj);
+  let arr = [];
+
+  for (let key in obj) {
+    arr.push([key, arr[key]]);
+  }
   return arr;
 }
-toArray({ test: "Foo", bar: "Test" });
+toArray(obj);
 
 // повинен виглядати як
 // [['test', 'Foo'], ['bar', 'Test']]
